@@ -1,78 +1,88 @@
-# Diabetic Retinopathy Detection
+# Diabetic Retinopathy Detection Model
 
-This project uses a deep learning model to detect diabetic retinopathy from retinal images.
+## Project Overview
+This project presents a **binary deep learning model** for detecting **Diabetic Retinopathy (DR)** from retinal fundus images. The system classifies images into **DR** or **No_DR** using a convolutional neural network trained on labeled retinal images, with the objective of supporting **early-stage screening** rather than clinical diagnosis.
 
-## Table of Contents
+---
 
-* [Introduction](#introduction)
-* [Requirements](#requirements)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Model](#model)
-* [Training](#training)
-* [Evaluation](#evaluation)
-* [Conclusion](#conclusion)
+## Model Architecture
+- **Model Type:** Custom Convolutional Neural Network (CNN)
+- **Input Shape:** (224 × 224 × 3)
+- **Output Classes:** 2 (DR, No_DR)
+- **Convolutional Blocks:** 5
+- **Dense Layers:** 2
+- **Total Parameters:** ~17.7 million
 
-## Introduction
+---
 
-Diabetic retinopathy is a serious complication of diabetes that can lead to blindness. Early detection and treatment are crucial to prevent vision loss. This project aims to develop a deep learning model that can detect diabetic retinopathy from retinal images.
+## Training Configuration
+- **Epochs:** 30
+- **Batch Size:** 32
+- **Optimizer:** Adam
+- **Initial Learning Rate:** 0.001
+- **Loss Function:** Categorical Cross-Entropy
+- **Framework:** TensorFlow / Keras
 
-## Requirements
+---
 
-* Python 3.8 or later
-* TensorFlow 2.x or later
-* Keras 2.x or later
-* NumPy 1.20 or later
-* Pandas 1.3 or later
-* Matplotlib 3.4 or later
-* Scikit-learn 0.24 or later
-* OpenCV 4.5 or later
+## Dataset Summary
+- **Training Samples:** 2,076
+- **Validation Samples:** 531
+- **Test Samples:** 231
+- **Total Samples:** 2,838
+- **Classes:**
+  - `DR` – Diabetic Retinopathy present
+  - `No_DR` – No Diabetic Retinopathy
 
-## Installation
+---
 
-To install the required libraries, follow the instructions in the [Conda Guide](https://github.com/siddhant-rajhans/detect_diabetic_retinopathy/blob/exp/conda_guide.md).
+## Final Test Set Performance
 
-## Usage
+| Metric     | Value   |
+|------------|---------|
+| Accuracy   | **96.10%** |
+| Precision  | **96.10%** |
+| Recall     | **96.10%** |
+| F1-Score   | **96.10%** |
+| AUC        | **97.62%** |
 
-To use the model, simply run the following commands:
+### Confusion Matrix Summary
+- **True Positives (DR → DR):** 106  
+- **False Negatives (DR → No_DR):** 7  
+- **False Positives (No_DR → DR):** 2  
+- **True Negatives (No_DR → No_DR):** 116  
 
-```
-conda install --yes --file requirements.txt
-```
-```
-python app.py
-```
-```
-streamlit run streamlit_app.py
-```
+These results indicate **high sensitivity and low false-positive rates**, which is desirable for medical screening tasks.
 
+---
 
+## Training Behavior
+- **Final Training Accuracy:** 93.50%
+- **Final Validation Accuracy:** 94.35%
+- **Training Loss:** 0.1785
+- **Validation Loss:** 0.1493
+- **Train–Validation Gap:** 0.85%
 
-This will load the model and start the prediction process.
+No significant overfitting was observed.
 
-## Model
+---
 
-The model used in this project is a convolutional neural network (CNN) that takes retinal images as input and outputs a probability distribution over the five classes of diabetic retinopathy.
+## Model Usage
+- The trained model is saved as **`best_dr_model.h5`**
+- Intended for **research and educational purposes only**
+- Suitable as a **pre-screening support system**, not a clinical diagnostic tool
 
-## Training
+---
 
-The model was trained on a dataset of retinal images with diabetic retinopathy. The training process involved the following steps:
+## Key Notes
+- Performance metrics are reported on a **held-out test set**
+- Results may vary on external datasets due to imaging and demographic differences
+- Further validation is required before real-world deployment
 
-* Data preprocessing: The images were resized to 224x224 pixels and normalized to have zero mean and unit variance.
-* Data augmentation: The images were augmented using random rotation, flipping, and cropping.
-* Model training: The model was trained using the Adam optimizer and categorical cross-entropy loss function.
+---
 
-## Evaluation
-
-The model was evaluated using the following metrics:
-
-* Accuracy: The proportion of correctly classified images.
-* Precision: The proportion of true positives among all positive predictions.
-* Recall: The proportion of true positives among all actual positive images.
-* F1-score: The harmonic mean of precision and recall.
-
-## Conclusion
-
-This project demonstrates the use of deep learning for diabetic retinopathy detection. The model achieved high accuracy and F1-score on the test dataset, indicating its potential for clinical use.
-```
-Note that you should replace `https://github.com/username/diabetic-retinopathy-detection/blob/main/conda_guide.md` with the actual link to your Conda guide.
+## Future Improvements
+- External dataset validation
+- Cross-dataset generalization testing
+- Explainability methods (Grad-CAM)
+- Multi-class DR severity grading
